@@ -15,5 +15,13 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "types": ["vite/client", "node"]
-  }
+  },
+  "exclude": [
+    "dist",
+    "setup.ts",
+    "examples",
+    "node_modules",
+    "/**/*.test.ts",
+    "vitest.config.ts"
+  ]
 }

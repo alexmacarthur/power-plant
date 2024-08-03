@@ -9,9 +9,11 @@
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist && mkdir dist && tsc",
     "test": "vitest run src",
-    "format": "prettier --write ."
+    "coverage": "vitest run src --coverage",
+    "format": "prettier --write .",
+    "start": "tsx examples/first.ts"
   },
   "keywords": [
     "di",
@@ -22,7 +24,10 @@
   ],
   "devDependencies": {
     "@types/node": "^22.0.2",
+    "@vitest/coverage-v8": "^2.0.5",
     "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.16.5",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
   }

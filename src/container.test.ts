@@ -1,15 +1,15 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { registry } from "./register";
 import { inject, container } from "./container";
 
-function makeFakeContext() {
+function makeFakeContext(): [DecoratorContext, any] {
   const fakeThis = {};
   const context = {
     addInitializer: function (cb) {
       cb.bind(fakeThis)();
     },
     name: "test",
-  };
+  } as DecoratorContext;
 
   return [context, fakeThis];
 }
@@ -22,7 +22,7 @@ describe("inject()", () => {
     const func = inject(TestClass);
     const [context, fakeThis] = makeFakeContext();
 
-    func(null, context);
+    func(undefined, context);
 
     expect(container.has(TestClass)).toBe(true);
     expect(container.size).toBe(1);
@@ -44,7 +44,7 @@ describe("inject()", () => {
     const func = inject(TestClass);
     const [context, fakeThis] = makeFakeContext();
 
-    func(null, context);
+    func(undefined, context);
 
     expect(container.has(TestClass)).toBe(true);
     expect(container.size).toBe(1);
@@ -69,11 +69,22 @@ describe("inject()", () => {
     const func = inject(TestClass);
     const [context, fakeThis] = makeFakeContext();
 
-    func(null, context);
+    func(undefined, context);
 
     expect(container.has(TestClass)).toBe(true);
     expect((container.get(TestClass) as any).version).toBe(1);
     expect(container.size).toBe(1);
     expect(fakeThis["test"]).toBeInstanceOf(TestClass);
+  });
+
+  it("throws an error if the class is not registered", () => {
+    class TestClass {}
+
+    const func = inject(TestClass);
+    const [context] = makeFakeContext();
+
+    expect(() => func(undefined, context)).toThrowError(
+      `The class ${TestClass.name} is not registered.`,
+    );
   });
 });
