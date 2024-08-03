@@ -2,10 +2,6 @@ import { describe, expect, it, afterEach } from "vitest";
 import { register, registry } from "./register";
 
 describe("register()", () => {
-  afterEach(() => {
-    registry.clear();
-  });
-
   it("registers a class with the registry", () => {
     class TestClass {}
 

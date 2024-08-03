@@ -1,17 +1,28 @@
 {
   "name": "@alexmacarthur/power-plant",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "vitest run src",
-    "build": "tsc"
-  },
-  "keywords": [],
   "author": "Alex MacArthur",
   "license": "MIT",
+  "version": "0.0.0",
+  "homepage": "https://github.com/alexmacarthur/power-plant",
+  "description": "",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run src",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "di",
+    "ioc",
+    "decorator",
+    "inversion-of-control",
+    "dependency-injection"
+  ],
   "devDependencies": {
     "@types/node": "^22.0.2",
+    "prettier": "^3.3.3",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
   }
