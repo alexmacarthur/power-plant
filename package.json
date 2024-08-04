@@ -2,7 +2,7 @@
   "name": "@alexmacarthur/power-plant",
   "author": "Alex MacArthur",
   "license": "MIT",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/alexmacarthur/power-plant",
   "description": "",
   "type": "module",
@@ -13,7 +13,8 @@
     "test": "vitest run src",
     "coverage": "vitest run src --coverage",
     "format": "prettier --write .",
-    "start": "tsx examples/first.ts"
+    "demo:local": "tsx examples/local.ts",
+    "demo:remote": "tsx examples/remote.ts"
   },
   "keywords": [
     "di",
@@ -23,7 +24,7 @@
     "dependency-injection"
   ],
   "devDependencies": {
-    "@types/node": "^22.0.2",
+    "@types/node": "^22.1.0",
     "@vitest/coverage-v8": "^2.0.5",
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
