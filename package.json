@@ -1,10 +1,10 @@
 {
   "name": "@alexmacarthur/power-plant",
+  "description": "A dependency injection framework built on native decorators.",
   "author": "Alex MacArthur",
   "license": "MIT",
   "version": "0.0.1",
   "homepage": "https://github.com/alexmacarthur/power-plant",
-  "description": "",
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
