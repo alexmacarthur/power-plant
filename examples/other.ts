@@ -1,16 +1,13 @@
-/* v8 ignore start */
-
 import { inject } from "../src/index";
 import {
-  EmailService,
   AnalyticsService,
+  EmailService,
   PushNotificationService,
 } from "./services";
-import { OtherApp } from "./other";
 
-export class MyClass {
+export class OtherApp {
   @inject(EmailService)
-  emailService: EmailService;
+  emailService;
 
   @inject(AnalyticsService)
   analyticsService;
@@ -26,6 +23,3 @@ export class MyClass {
     console.log(this.pushNotificationService.pushNotificationKey);
   }
 }
-
-new MyClass().run();
-new OtherApp().run();

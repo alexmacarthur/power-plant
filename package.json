@@ -13,8 +13,7 @@
     "test": "vitest run src",
     "coverage": "vitest run src --coverage",
     "format": "prettier --write .",
-    "demo:local": "tsx examples/local.ts",
-    "demo:remote": "tsx examples/remote.ts"
+    "demo": "tsx examples/local.ts"
   },
   "keywords": [
     "di",
