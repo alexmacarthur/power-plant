@@ -10,7 +10,7 @@ import { OtherApp } from "./other";
 
 export class MyClass {
   @inject(EmailService)
-  emailService: EmailService;
+  emailService;
 
   @inject(AnalyticsService)
   analyticsService;

@@ -77,14 +77,20 @@ describe("inject()", () => {
     expect(fakeThis["test"]).toBeInstanceOf(TestClass);
   });
 
-  it("throws an error if the class is not registered", () => {
-    class TestClass {}
+  it("creates instance with no arguments when class is not registered", () => {
+    class TestClass {
+      version: number = 0;
+
+      constructor() {}
+    }
 
     const func = inject(TestClass);
-    const [context] = makeFakeContext();
+    const [context, fakeThis] = makeFakeContext();
 
-    expect(() => func(undefined, context)).toThrowError(
-      `The class ${TestClass.name} is not registered.`,
-    );
+    func(undefined, context);
+
+    expect(container.has(TestClass)).toBe(true);
+    expect(container.size).toBe(1);
+    expect(fakeThis["test"]).toBeInstanceOf(TestClass);
   });
 });

@@ -7,13 +7,10 @@ export function inject(clazz: Constructor) {
   return function (_value: undefined, context: DecoratorContext) {
     context.addInitializer(function () {
       let instance = container.get(clazz);
-
-      if (!registry.has(clazz)) {
-        throw new Error(`The class ${clazz.name} is not registered.`);
-      }
+      let instanceArgs = registry.get(clazz) || [];
 
       if (!instance) {
-        instance = Reflect.construct(clazz, registry.get(clazz));
+        instance = Reflect.construct(clazz, instanceArgs);
         container.set(clazz, instance);
       }
 

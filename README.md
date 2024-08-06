@@ -1,12 +1,16 @@
 # Power Plant
 
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/%40alexmacarthur%2Fpower-plant)
+
 _A dependency injection framework built on native decorators._
 
 ## Why?
 
-[Native class decorators](https://github.com/tc39/proposal-decorators) will soon be available in ECMAScript, providing a simple API for enhancing classes, their fields, methods, and accessors.
+[Native class decorators](https://github.com/tc39/proposal-decorators) will inevitably be made available in ECMAScript, providing a simple API for enhancing classes, their fields, methods, and accessors.
 
 Amongst the many use cases is container-managed dependency injection, an approach used by frameworks such as Laravel, Spring Boot, and Nest.js. This library offers a similar feature using native JavaScript decorators.
+
+It's purpose is to help maintain clear inversion of control, remove instantiation responsibilty from your application, and enable simpler testing of your application code.
 
 ## Installation
 
@@ -14,20 +18,11 @@ Amongst the many use cases is container-managed dependency injection, an approac
 
 ## Usage
 
-There are two decorators that must be used in order to leverage this library:
+There are two decorators available for using this library.
 
-### Register Classes
+### (Optionally) Register Classes w/ Constructor Parameters
 
-First, add the `@register` decorator to every class you'd like to allow to be instantiated within the container:
-
-```ts
-import { register } from "@alexmacarthur/power-plant";
-
-@register()
-class MyService {}
-```
-
-By default, each registered class will later be instantiated with no constructor parameters. If you'd like to define them, however, you can provide an array of them in the `@register()` call:
+By default, no class registration is necessary (they will be lazily instantiated when injected). However, if you'd like to customize the parameters passed to a class constructor, use the `@register` decorator to define them as an array:
 
 ```ts
 @register(["arg1", "arg2", "arg3"])
@@ -37,16 +32,13 @@ class MyService {}
 When the class is later instantiated, that array will be provided as distinct parameters:
 
 ```ts
-new class MyService('arg1', 'arg2', 'arg3');
+new class MyService("arg1", "arg2", "arg3");
 ```
 
 If, for whatever reason, you'd like to add or remove registered classes manually, you can import the `registry` Map directly:
 
 ```ts
 import { registry } from "@alexmacarthur/power-plant";
-
-// Register with no constructor parameters.
-registry.set(MyService, []);
 
 // Register with constructor parameters.
 registry.set(MyService, ["arg1", "arg2", "arg3"]);
@@ -57,7 +49,7 @@ registry.delete(MyService);
 
 ### Injecting Classes
 
-The `@inject()` decorator is needed to construct and assign class instances to class fields.
+The `@inject()` decorator is needed to construct and assign instances to class fields.
 
 ```ts
 class MyClass {
@@ -70,7 +62,7 @@ class MyClass {
 }
 ```
 
-If needed you can manipulate the container of instantiated classes directly:
+If needed, you can manipulate the container of instantiated classes directly:
 
 ```ts
 import { container } from "@alexmacarthur/power-plant";
@@ -81,6 +73,36 @@ container.set(MyService, myServiceInstance);
 
 // Remove instances.
 container.delete(MyService);
+```
+
+## Testing with Injected Dependencies
+
+To mock an injected class during a test, you can use the aforementioned `container` to point the `@inject` decorator to a mock instance. For example:
+
+```typescript
+it("Can mock instances.", () => {
+  class MyTestApp {
+    @inject(EmailService)
+    emailService;
+
+    go() {
+      this.emailService.send("my message!");
+    }
+  }
+
+  const mockEmailServiceInstance = {
+    send: vi.fn(),
+  };
+
+  // Replace actual implementation with a mock.
+  container.set(EmailService, mockEmailServiceInstance);
+
+  new MyTestApp().go();
+
+  // Make assertions on that mock.
+  expect(mockEmailServiceInstance.send).toHaveBeenCalledTimes(1);
+  expect(mockEmailServiceInstance.send).toHaveBeenCalledWith("my message!");
+});
 ```
 
 ## FAQ

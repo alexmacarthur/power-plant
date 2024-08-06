@@ -1,3 +1,5 @@
+/* v8 ignore start */
+
 import { inject } from "../src/index";
 import {
   AnalyticsService,

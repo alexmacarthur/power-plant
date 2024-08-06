@@ -1,3 +1,5 @@
+/* v8 ignore start */
+
 import { register } from "../src/index";
 
 @register()
