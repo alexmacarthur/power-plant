@@ -3,7 +3,7 @@
   "description": "A dependency injection framework built on native decorators.",
   "author": "Alex MacArthur",
   "license": "MIT",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "homepage": "https://github.com/alexmacarthur/power-plant",
   "type": "module",
   "types": "dist/index.d.ts",

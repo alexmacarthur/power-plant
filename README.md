@@ -131,10 +131,11 @@ export class MyDependencyClass {}
 // my-class.ts
 
 import { inject } from "@alexmacarthur/power-plant";
+import { MyDependencyClass } from "./my-dependency-class";
 
 export class MyClass {
-  @inject(EmailService)
-  emailService: EmailService;
+  @inject(MyDependencyClass)
+  dependencyClass: MyDependencyClass;
 
   constructor() {}
 
@@ -146,10 +147,11 @@ export class MyClass {
 // my-other-class.ts
 
 import { inject } from "@alexmacarthur/power-plant";
+import { MyDependencyClass } from "./my-dependency-class";
 
 export class MyOtherClass {
-  @inject(EmailService)
-  emailService: EmailService;
+  @inject(MyDependencyClass)
+  dependencyClass: MyDependencyClass;
 
   constructor() {}
 
